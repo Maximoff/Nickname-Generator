@@ -5,5 +5,8 @@
 	<string name="length">Length:</string>
     <string name="generate">Generate</string>
 	<string name="copied">Copied: %s</string>
+	<string name="first_cap">First caps</string>
+	<string name="all_cap">All caps</string>
+	<string name="first_lett">First letter:</string>
 
 </resources>
