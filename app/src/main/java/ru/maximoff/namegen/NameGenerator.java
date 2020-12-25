@@ -13,7 +13,7 @@ public class NameGenerator {
 	private final int startChar = 97;
 	private String lastName = "";
 	private int length = DEF;
-	private char firstChar = ' ';
+	private char firstChar = '-';
 	private boolean firstToUpper = true;
 	private boolean allToUpper = false;
 	private List<Character> vowels = new ArrayList<>();
@@ -67,7 +67,7 @@ public class NameGenerator {
 			Random random = new Random();
 			char[] charArray = new char[length];
 			int i = 0, x = random.nextInt(2);
-			if (firstChar != ' ') {
+			if (firstChar != '-') {
 				charArray[0] = firstChar;
 				i++;
 				x = 0;

@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 		final String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		final NameGenerator generator = new NameGenerator();
 		final String[] lettArray = new String[letters.length() + 1];
-		lettArray[0] = " ";
+		lettArray[0] = "-";
 		for (int i = 0; i < letters.length(); i++) {
 			lettArray[i + 1] = String.valueOf(letters.charAt(i));
 		}
