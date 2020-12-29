@@ -29,6 +29,14 @@
 		android:id="@+id/mainCheckBox2"
 		android:text="@string/all_cap"/>
 
+	<CheckBox
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/mainCheckBox3"
+		android:checked="true"
+		android:layout_marginBottom="10dp"
+		android:text="@string/doublev"/>
+
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="wrap_content"

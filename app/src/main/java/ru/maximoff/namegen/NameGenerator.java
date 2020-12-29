@@ -16,6 +16,7 @@ public class NameGenerator {
 	private char firstChar = '-';
 	private boolean firstToUpper = true;
 	private boolean allToUpper = false;
+	private boolean doubleVow = false;
 	private List<Character> vowels = new ArrayList<>();
 
 	public NameGenerator() {
@@ -61,6 +62,10 @@ public class NameGenerator {
 	public void setFirstChar(String lett) {
 		this.firstChar = Character.toLowerCase(lett.charAt(0));
 	}
+	
+	public void setDouble(boolean value) {
+		this.doubleVow = value;
+	}
 
 	public String getName() {
 		while (true) {
@@ -77,7 +82,16 @@ public class NameGenerator {
 			}
 			for (; i < length; i++,x++) {
 				if (checkPosition(x)) {
-					charArray[i] = getVowel(random);
+					char vow = getVowel(random);
+					charArray[i] = vow;
+					if (doubleVow && i > 0 && i < (length - 1) && (vow == 'e' || vow == 'o')) {
+						int z = random.nextInt(99);
+						if (checkPosition(z)) {
+							i++;
+							doubleVow = false;
+							charArray[i] = vow;
+						}
+					}
 				} else {
 					charArray[i] = getRandChar(random);
 				}

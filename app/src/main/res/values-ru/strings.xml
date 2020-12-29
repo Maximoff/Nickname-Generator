@@ -7,6 +7,7 @@
 	<string name="copied">Скопировано: %s</string>
 	<string name="first_cap">Первый заглавный</string>
 	<string name="all_cap">Все заглавные</string>
+	<string name="doublev">Двойные «e» и «o»</string>
 	<string name="first_lett">Первый символ:</string>
 
 </resources>

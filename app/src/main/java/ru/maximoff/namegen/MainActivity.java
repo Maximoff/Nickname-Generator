@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 		range.setSelection(generator.def() - generator.min());
 		final CheckBox firstCap = findViewById(R.id.mainCheckBox1);
 		final CheckBox allCap = findViewById(R.id.mainCheckBox2);
+		final CheckBox doubleVow = findViewById(R.id.mainCheckBox3);
 		final TextView text = findViewById(R.id.mainTextView1);
 		final Button button = findViewById(R.id.mainButton1);
 		OnClickListener listener = new OnClickListener() {
@@ -52,6 +53,7 @@ public class MainActivity extends Activity {
 				generator.setFirstChar(lettArray[firstLett.getSelectedItemPosition()]);
 				generator.firstToUpper(firstCap.isChecked());
 				generator.allToUpper(allCap.isChecked());
+				generator.setDouble(doubleVow.isChecked());
 				generator.setLength(range.getSelectedItemPosition() + generator.min());
 				text.setText(generator.getName());
 			}
@@ -81,6 +83,7 @@ public class MainActivity extends Activity {
 		button.setOnClickListener(listener);
 		allCap.setOnClickListener(listener);
 		firstCap.setOnClickListener(listener);
+		doubleVow.setOnClickListener(listener);
 		text.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View p1) {
