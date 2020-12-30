@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.format.DateFormat;
+import android.text.style.URLSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -64,7 +67,9 @@ public class MainActivity extends Activity {
 						break;
 
 					case R.id.mainCheckBox2:
-						set.setb("all_cap", ((CheckBox) p1).isChecked());
+						boolean checked = ((CheckBox) p1).isChecked();
+						firstCap.setEnabled(!checked);
+						set.setb("all_cap", checked);
 						break;
 
 					case R.id.mainCheckBox3:
@@ -116,13 +121,11 @@ public class MainActivity extends Activity {
 					setClipboard(generator.getLast());
 				}
 			});
-		text.setText(generator.getName());
 		String year = DateFormat.format("yyyy", new Date()).toString();
 		if (!year.equals("2020")) {
 			year = "2020 - " + year;
 		}
 		final TextView copyright = findViewById(R.id.mainTextView2);
-		copyright.setText("© Maximoff, " + year);
 		copyright.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View p1) {
@@ -131,7 +134,16 @@ public class MainActivity extends Activity {
 					startActivity(open);
 				}
 			});
+		setHyperlinkText(copyright, "© Maximoff, " + year);
+		button.performClick();
     }
+	
+	private void setHyperlinkText(final TextView tv, final String text) {
+		final SpannableString spannableString = new SpannableString( text );
+		spannableString.setSpan(new URLSpan(""), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv.setText(spannableString, TextView.BufferType.SPANNABLE);
+		tv.setClickable(true);
+	}
 
 	private void setClipboard(String text) {
 		ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
