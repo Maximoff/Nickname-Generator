@@ -18,30 +18,38 @@
 			android:layout_height="wrap_content"
 			android:id="@+id/mainTextView1"
 			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:layout_marginBottom="10dp"/>
+			android:layout_marginBottom="10dp"
+			android:textIsSelectable="true"/>
 
-		<CheckBox
+		<LinearLayout
+			android:orientation="vertical"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:checked="true"
-			android:id="@+id/mainCheckBox1"
-			android:text="@string/first_cap"/>
+			android:layout_marginBottom="10dp">
 
-		<CheckBox
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/mainCheckBox2"
-			android:text="@string/all_cap"/>
+			<CheckBox
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:checked="true"
+				android:id="@+id/mainCheckBox1"
+				android:text="@string/first_cap"
+				android:layout_marginBottom="10dp"/>
 
-		<CheckBox
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/mainCheckBox3"
-			android:checked="true"
-			android:layout_marginBottom="10dp"
-			android:text="@string/doublev"/>
+			<CheckBox
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="10dp"
+				android:id="@+id/mainCheckBox2"
+				android:text="@string/all_cap"/>
+
+			<CheckBox
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/mainCheckBox3"
+				android:checked="true"
+				android:text="@string/doublev"/>
+
+		</LinearLayout>
 
 		<LinearLayout
 			android:orientation="horizontal"
