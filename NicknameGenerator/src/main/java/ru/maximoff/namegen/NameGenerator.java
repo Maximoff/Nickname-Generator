@@ -8,7 +8,7 @@ public class NameGenerator {
 	private final int MIN = 3; // минимальная длина
 	private final int MAX = 15; // максимальная длина
 	private final int DEF = 7; // длина по умолчанию
-	
+
 	private final int diff = 26;
 	private final int startChar = 97;
 	private String lastName = "";
@@ -31,15 +31,15 @@ public class NameGenerator {
 	public String getLast() {
 		return lastName;
 	}
-	
+
 	public int min() {
 		return MIN;
 	}
-	
+
 	public int max() {
 		return MAX;
 	}
-	
+
 	public int def() {
 		return DEF;
 	}
@@ -62,7 +62,7 @@ public class NameGenerator {
 	public void setFirstChar(String lett) {
 		this.firstChar = Character.toLowerCase(lett.charAt(0));
 	}
-	
+
 	public void setDouble(boolean value) {
 		this.doubleVow = value;
 	}

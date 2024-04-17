@@ -52,8 +52,8 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="wrap_content"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="10dp"
 			android:gravity="center">
@@ -62,13 +62,14 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="@string/length"
+				android:id="@+id/mainTextView3"
 				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_marginRight="5dp"/>
+				android:layout_marginBottom="5dp"/>
 
-			<Spinner
-				android:layout_width="wrap_content"
+			<SeekBar
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/mainSpinner1"/>
+				android:id="@+id/mainSeekBar1"/>
 
 		</LinearLayout>
 

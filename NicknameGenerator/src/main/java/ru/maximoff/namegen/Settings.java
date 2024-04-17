@@ -1,4 +1,5 @@
 package ru.maximoff.namegen;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 

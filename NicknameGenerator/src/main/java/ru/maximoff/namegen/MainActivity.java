@@ -22,7 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Date;
-import ru.maximoff.namegen.R;
+import android.widget.SeekBar;
 
 public class MainActivity extends Activity {
     @Override
@@ -42,14 +42,12 @@ public class MainActivity extends Activity {
 		firstLett.setAdapter(lettAdapter);
 		firstLett.setSelection(set.geti("letter", 0));
 		int size = generator.max() - generator.min();
-		final String[] values = new String[size + 1];
-		for (int i = 0; i <= size; i++) {
-			values[i] = String.valueOf(i + generator.min());
-		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, values);
-		final Spinner range = findViewById(R.id.mainSpinner1);
-		range.setAdapter(adapter);
-		range.setSelection(set.geti("size", generator.def() - generator.min()));
+		int prgrs = set.geti("size", generator.def() - generator.min());
+		final TextView length = findViewById(R.id.mainTextView3);
+		final SeekBar range = findViewById(R.id.mainSeekBar1);
+		range.setMax(size);
+		range.setProgress(prgrs);
+		length.setText(getString(R.string.length, prgrs + generator.min()));
 		final CheckBox firstCap = findViewById(R.id.mainCheckBox1);
 		firstCap.setChecked(set.getb("first_cap", true));
 		final CheckBox allCap = findViewById(R.id.mainCheckBox2);
@@ -75,7 +73,7 @@ public class MainActivity extends Activity {
 					case R.id.mainCheckBox3:
 						set.setb("double_vow", ((CheckBox) p1).isChecked());
 						break;
-						
+
 					default:
 						break;
 				}
@@ -83,7 +81,7 @@ public class MainActivity extends Activity {
 				generator.firstToUpper(firstCap.isChecked());
 				generator.allToUpper(allCap.isChecked());
 				generator.setDouble(doubleVow.isChecked());
-				generator.setLength(range.getSelectedItemPosition() + generator.min());
+				generator.setLength(range.getProgress() + generator.min());
 				text.setText(generator.getName());
 			}
 		};
@@ -99,16 +97,23 @@ public class MainActivity extends Activity {
 				public void onNothingSelected(AdapterView<?> p1) {
 				}
 			});
-		range.setOnItemSelectedListener(new OnItemSelectedListener() {
+		range.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 				@Override
-				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-					set.seti("size", p3);
-					generator.setLength(p3 + generator.min());
+				public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
+					set.seti("size", p2);
+					generator.setLength(p2 + generator.min());
+					length.setText(getString(R.string.length, p2 + generator.min()));
 					text.setText(generator.getName());
 				}
 
 				@Override
-				public void onNothingSelected(AdapterView<?> p1) {
+				public void onStartTrackingTouch(SeekBar p1) {
+
+				}
+
+				@Override
+				public void onStopTrackingTouch(SeekBar p1) {
+
 				}
 			});
 		button.setOnClickListener(listener);
@@ -137,9 +142,9 @@ public class MainActivity extends Activity {
 		setHyperlinkText(copyright, "© Maximoff, " + year);
 		button.performClick();
     }
-	
+
 	private void setHyperlinkText(final TextView tv, final String text) {
-		final SpannableString spannableString = new SpannableString( text );
+		final SpannableString spannableString = new SpannableString(text);
 		spannableString.setSpan(new URLSpan(""), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		tv.setText(spannableString, TextView.BufferType.SPANNABLE);
 		tv.setClickable(true);
@@ -147,14 +152,13 @@ public class MainActivity extends Activity {
 
 	private void setClipboard(String text) {
 		ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		ClipData clip = ClipData.newPlainText("Copied Text", text);
+		ClipData clip = ClipData.newPlainText(getText(R.string.app_name), text);
 		clipboard.setPrimaryClip(clip);
 		Toast.makeText(this, getString(R.string.copied, text), Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
 		finish();
 	}
 }
