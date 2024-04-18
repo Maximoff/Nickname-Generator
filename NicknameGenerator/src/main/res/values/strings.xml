@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Nickname Generator</string>
+	<string name="app_name">Nickname Generator</string>
 	<string name="length">Length: %d</string>
-    <string name="generate">Generate</string>
+	<string name="generate">Generate</string>
 	<string name="copied">Copied: %s</string>
 	<string name="first_cap">First caps</string>
 	<string name="all_cap">All caps</string>
-	<string name="doublev">Double «e» and «o»</string>
+	<string name="doublev">Double \"e\" and \"o\"</string>
 	<string name="first_lett">First letter:</string>
-
 </resources>

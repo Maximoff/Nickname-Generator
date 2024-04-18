@@ -14,6 +14,11 @@
 
 		<TextView
 			android:text="..."
+			android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/very_light_blue"
+			android:clickable="true"
+			android:focusable="true"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:id="@+id/mainTextView1"
@@ -113,4 +118,3 @@
 		android:padding="3dp"/>
 
 </LinearLayout>
-

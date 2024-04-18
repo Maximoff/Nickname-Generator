@@ -2,6 +2,7 @@
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar.Fullscreen">
         <item name="android:colorAccent">@color/very_light_blue</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:windowTranslucentStatus">true</item>
 	</style>
 </resources>

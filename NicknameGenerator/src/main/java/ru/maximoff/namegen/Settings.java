@@ -29,4 +29,13 @@ public class Settings {
 	public int geti(String name, int defaultValue) {
 		return preferences.getInt(name, defaultValue);
 	}
+	
+	public void sets(String name, String value) {
+		editor.putString(name, value);
+		editor.commit();
+	}
+
+	public String gets(String name, String defaultValue) {
+		return preferences.getString(name, defaultValue);
+	}
 }

@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -18,13 +19,15 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Date;
-import android.widget.SeekBar;
 
 public class MainActivity extends Activity {
+	private boolean initSpin = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,15 +85,27 @@ public class MainActivity extends Activity {
 				generator.allToUpper(allCap.isChecked());
 				generator.setDouble(doubleVow.isChecked());
 				generator.setLength(range.getProgress() + generator.min());
-				text.setText(generator.getName());
+				String nick = generator.getName();
+				text.setText(nick);
+				set.sets("last", nick);
 			}
 		};
 		firstLett.setOnItemSelectedListener(new OnItemSelectedListener() {
 				@Override
 				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-					set.seti("letter", p3);
-					generator.setFirstChar(lettArray[p3]);
-					text.setText(generator.getName());
+					if (initSpin) {
+						set.seti("letter", p3);
+						generator.setFirstChar(lettArray[p3]);
+						generator.firstToUpper(firstCap.isChecked());
+						generator.allToUpper(allCap.isChecked());
+						generator.setDouble(doubleVow.isChecked());
+						generator.setLength(range.getProgress() + generator.min());
+						String nick = generator.getName();
+						text.setText(nick);
+						set.sets("last", nick);
+					} else {
+						initSpin = true;
+					}
 				}
 
 				@Override
@@ -98,22 +113,33 @@ public class MainActivity extends Activity {
 				}
 			});
 		range.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+				private boolean touch = false;
+
 				@Override
 				public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
+					if (!touch) {
+						return;
+					}
 					set.seti("size", p2);
+					generator.setFirstChar(lettArray[firstLett.getSelectedItemPosition()]);
+					generator.firstToUpper(firstCap.isChecked());
+					generator.allToUpper(allCap.isChecked());
+					generator.setDouble(doubleVow.isChecked());
 					generator.setLength(p2 + generator.min());
 					length.setText(getString(R.string.length, p2 + generator.min()));
-					text.setText(generator.getName());
+					String nick = generator.getName();
+					text.setText(nick);
+					set.sets("last", nick);
 				}
 
 				@Override
 				public void onStartTrackingTouch(SeekBar p1) {
-
+					touch = true;
 				}
 
 				@Override
 				public void onStopTrackingTouch(SeekBar p1) {
-
+					touch = false;
 				}
 			});
 		button.setOnClickListener(listener);
@@ -123,7 +149,7 @@ public class MainActivity extends Activity {
 		text.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View p1) {
-					setClipboard(generator.getLast());
+					setClipboard(text.getText().toString());
 				}
 			});
 		String year = DateFormat.format("yyyy", new Date()).toString();
@@ -140,7 +166,12 @@ public class MainActivity extends Activity {
 				}
 			});
 		setHyperlinkText(copyright, "© Maximoff, " + year);
-		button.performClick();
+		String nick = set.gets("last", null);
+		if (nick == null) {
+			button.performClick();
+		} else {
+			text.setText(nick);
+		}
     }
 
 	private void setHyperlinkText(final TextView tv, final String text) {
@@ -159,6 +190,10 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		finish();
+		if (Build.VERSION.SDK_INT < 21) {
+			finish();
+		} else {
+			finishAndRemoveTask();
+		}
 	}
 }
